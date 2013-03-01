@@ -1,3 +1,6 @@
+import Data.List
+import Data.Char
+
 doubleMe x = x + x
 doubleUs x y = x * 2 + y * 2
 
@@ -92,7 +95,7 @@ quicksort' (x:xs) =
       larger = filter (> x) xs
   in quicksort' smallerOrEqual ++ [x] ++ quicksort' larger
 
--- 5. ‚ŠKŠÖ”
+-- 5. ???K?Ö?
 applyTwice :: (a -> a) -> a -> a
 applyTwice f x = f (f x)
 
@@ -121,3 +124,27 @@ numLongChains = length (filter isLong (map chain [1..100]))
 numLongChains' :: Int
 numLongChains' = length (filter (\xs -> length xs > 15)
                                 (map chain [1..100]))
+
+sum' :: (Num a) => [a] -> a
+sum' = foldl (+) 0
+
+sqrtSums :: Int
+sqrtSums = length (takeWhile (<1000) (scanl1 (+) (map sqrt [1..]))) + 1
+
+oddSquareSum :: Integer
+oddSquareSum = sum (takeWhile (<10000) (filter odd (map (^2) [1..])))
+
+oddSquareSum' = sum . takeWhile (<10000) . filter odd . map (^2)
+
+-- 6. Module
+numUniques :: (Eq a) => [a] -> Int
+numUniques = length . nub
+
+wordNums :: String -> [(String, Int)]
+wordNums = map (\ws -> (head ws, length ws)) . group . sort . words
+
+digitSum :: Int -> Int
+digitSum = sum . map digitToInt . show
+
+firstTo :: Int -> Maybe Int
+firstTo n = find (\x -> digitSum x == n) [1..]
