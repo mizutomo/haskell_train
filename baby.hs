@@ -157,11 +157,35 @@ area :: Shape -> Float
 area (Circle _ r) = pi * r ^ 2
 area (Rectangle (Point x1 y1) (Point x2 y2)) = (abs $ x2 - x1) * (abs $ y2 - y1)
 
+-- data Person = Person { firstName :: String
+--                      , lastName :: String
+--                      , age :: Int
+--                      , height :: Float
+--                      , phoneNumber :: String
+--                      , flavor :: String } deriving (Show)
+
+data Car1 = Car1 { company :: String
+                 , model :: String
+                 , year :: Int } deriving (Show)
+tellCar1 :: Car1 -> String
+tellCar1 (Car1 {company = c, model = m, year = y}) =
+  "This " ++ c ++ " " ++ m ++ " was made in " ++ show y
+
+data Vector a = Vector a a a deriving (Show)
+vplus :: (Num a) => Vector a -> Vector a -> Vector a
+(Vector i j k) `vplus` (Vector l m n) = Vector (i+l) (j+m) (k+n)
+dotProd :: (Num a) => Vector a -> Vector a -> a
+(Vector i j k) `dotProd` (Vector l m n) = i*l + j*m + k*n
+vmult :: (Num a) => Vector a -> a -> Vector a
+(Vector i j k) `vmult` m = Vector (i*m) (j*m) (k*m)
+
 data Person = Person { firstName :: String
-                     , lastName :: String
-                     , age :: Int
-                     , height :: Float
-                     , phoneNumber :: String
-                     , flavor :: String } deriving (Show)
+                      , lastName :: String
+                      , age :: Int } deriving (Eq, Show, Read)
+mikeD = Person {firstName = "Michael", lastName = "Diamond", age = 42}
+adRock = Person {firstName = "Adam", lastName = "Horovitz", age = 41}
+mca = Person {firstName = "Adam", lastName = "Yauch", age = 44}
+
+data Day = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday deriving (Eq, Ord, Show, Read, Bounded, Enum)
 
 
